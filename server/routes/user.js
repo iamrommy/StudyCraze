@@ -15,7 +15,7 @@ const {
 const {
   resetPasswordToken,
   resetPassword,
-} = require("../controllers/ResetPassword");
+} = require("../controllers/resetPassword");
 
 const { autherization } = require("../middlewares/Autherization");
 const User = require("../models/User");
