@@ -74,7 +74,7 @@ exports.contactUsEmail = (
     
     <body>
         <div class="container">
-            <a href="#"><img class="logo"
+            <a href="https://studycraze.vercel.app/"><img class="logo"
                     src="https://i.ibb.co/nQmMCsX/Study-Craze.png" alt="StudyCraze Logo"></a>
             <div class="message">Contact Form Confirmation</div>
             <div class="body">
