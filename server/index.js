@@ -78,6 +78,12 @@ connectPassport();
 //cloudinary connect
 cloudinaryConnect();
 
+// Set Access-Control-Allow-Credentials header
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
 //routes 
 app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/profile', profileRoutes);
