@@ -64,8 +64,8 @@ router.get("/googlelogin/callback", async(req, res)=>{
     //create cookie
     const options = {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        httpOnly: true,
-        secure: true,
+        // httpOnly: true,
+        // secure: false,
         sameSite: 'None',
         domain: '.studycraze.vercel.app'
     };
