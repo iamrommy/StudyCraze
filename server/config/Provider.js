@@ -57,7 +57,7 @@ const connectPassport = () => {
 
           else { //if the normal user doesn't exist and but the google user exist then sign in
             console.log('user already exists');
-            console.log(user);
+            // console.log(user);
             return done(null, user);
           }
         } 
