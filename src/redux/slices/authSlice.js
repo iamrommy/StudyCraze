@@ -6,7 +6,7 @@ function getCookie(name) {
         const decodedValue = decodeURIComponent(cookieValue.pop());
         // Remove 'j:' prefix from the decoded value
         const cleanedValue = decodedValue.replace(/^j:/, '');
-        console.log(cleanedValue)
+        // console.log(cleanedValue)
         return cleanedValue;
     }
     return '';
