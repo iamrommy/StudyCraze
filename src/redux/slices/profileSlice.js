@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 
 function getCookie(name) {
     const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    console.log("cookie Value",cookieValue);
     if (cookieValue) {
         const decodedValue = decodeURIComponent(cookieValue.pop());
         // Remove 'j:' prefix from the decoded value
