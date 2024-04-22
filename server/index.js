@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const MongoStore = require('connect-mongo');
 
 const connectToDatabase = require('./config/database');
 const {cloudinaryConnect} = require('./config/cloudinary');
@@ -53,17 +54,15 @@ app.use(
       resave: false,
       saveUninitialized: false,
 
-        cookie: {
-            secure: true,
-            httpOnly: true,
-            sameSite: "none"
-        }
-        
-      // cookie: {
-      //   secure: process.env.NODE_ENV === "development" ? false : true,
-      //   httpOnly: process.env.NODE_ENV === "development" ? false : true,
-      //   sameSite: process.env.NODE_ENV === "development" ? false : "none",
-      // },
+      store: MongoStore.create({ 
+          mongoUrl: process.env.MONGODB_URL
+      }),
+ 
+      cookie: {
+        secure: process.env.NODE_ENV === "development" ? false : true,
+        httpOnly: process.env.NODE_ENV === "development" ? false : true,
+        sameSite: process.env.NODE_ENV === "development" ? false : "none",
+      }
     })
   );
 
