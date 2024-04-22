@@ -17,7 +17,7 @@ function getParsedCookie(name){
     if(userCookieValue === ""){return null}
     try {
         const finalCookie = JSON.parse(userCookieValue);
-        // console.log(finalCookie);
+        console.log("user cookie value", finalCookie);
         return finalCookie;
     } catch (error) {
         // console.error('Error parsing JSON:', error);
