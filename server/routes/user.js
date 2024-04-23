@@ -71,7 +71,7 @@ router.get("/googlelogin/callback", async(req, res)=>{
         expires: new Date(Date.now() + 1 * 1 * 60 * 60 * 1000),
         secure: process.env.NODE_ENV === "development" ? false : true,
         httpOnly: process.env.NODE_ENV === "development" ? false : true,
-        sameSite: process.env.NODE_ENV === "development" ? false : "none",
+        sameSite: process.env.NODE_ENV === "development" ? false : "lax",
         domain: "studycraze.vercel.app"
     };
 
