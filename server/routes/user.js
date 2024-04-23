@@ -63,11 +63,14 @@ router.get("/googlelogin/callback", async(req, res)=>{
 
     //create cookie
     const options = {
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        httpOnly: false,
-        secure: true,
-        sameSite: 'None',
-        domain: '.studycraze.vercel.app'
+        // expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        // httpOnly: false,
+        // secure: true,
+        // sameSite: 'None',
+        // domain: '.studycraze.vercel.app'
+        secure: process.env.NODE_ENV === "development" ? false : true,
+        httpOnly: process.env.NODE_ENV === "development" ? false : true,
+        sameSite: process.env.NODE_ENV === "development" ? false : "none"
     };
 
   //   res.cookie('token', token, options).status(200).json({
