@@ -78,8 +78,8 @@ router.get("/googlelogin/callback", async(req, res)=>{
     expirationDate.setDate(expirationDate.getDate() + 3);
 
     res.setHeader('Set-Cookie', [
-      `token=${token}; Path=/; Domain=studycraze.vercel.app; Path=/; Expires=${expirationDate.toUTCString()}`,
-      `user=${userCookieValue}; Domain=studycraze.vercel.app; Path=/; Expires=${expirationDate.toUTCString()}`
+      `token=${token}; Path=/; Domain=.studycraze.vercel.app; Path=/; Secure; Expires=${expirationDate.toUTCString()}`,
+      `user=${userCookieValue}; Domain=.studycraze.vercel.app; Path=/; Secure: Expires=${expirationDate.toUTCString()}`
     ])
   
     res.redirect(`${process.env.FRONTEND_URL}/dashboard/my-profile`);
