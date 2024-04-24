@@ -62,16 +62,26 @@ router.get("/googlelogin/callback", async(req, res)=>{
     });
 
     //create cookie
-    const options = {
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        secure: process.env.NODE_ENV === "development" ? false : true,
-        sameSite: process.env.NODE_ENV === "development" ? false : "none",
-        domain: '.studycraze.vercel.app',
-        path: "/"
-    };
+    // const options = {
+    //     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+    //     secure: process.env.NODE_ENV === "development" ? false : true,
+    //     sameSite: process.env.NODE_ENV === "development" ? false : "none",
+    //     domain: '.studycraze.vercel.app',
+    //     path: "/"
+    // };
 
-    res.cookie('token', token, options);
-    res.cookie('user', user, options);
+    // res.cookie('token', token, options);
+    // res.cookie('user', user, options);
+
+    const userCookieValue = JSON.stringify(user);
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 3);
+
+    res.setHeader('Set-Cookie', [
+      `token=${token}; Path=/; Expires=${expirationDate.toUTCString()}`,
+      `user=${userCookieValue}; Path=/; Expires=${expirationDate.toUTCString()}`
+    ])
+  
     res.redirect(`${process.env.FRONTEND_URL}/dashboard/my-profile`);
 });
 
