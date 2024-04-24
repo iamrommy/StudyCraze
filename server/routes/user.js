@@ -67,7 +67,6 @@ router.get("/googlelogin/callback", async(req, res)=>{
         secure: process.env.NODE_ENV === "development" ? false : true,
         httpOnly: process.env.NODE_ENV === "development" ? false : true,
         sameSite: process.env.NODE_ENV === "development" ? false : "none",
-        domain: process.env.NODE_ENV === "development" ? "localhost" : "studycraze.vercel.app",
         path: "/"
     };
 
