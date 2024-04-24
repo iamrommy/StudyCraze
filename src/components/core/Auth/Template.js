@@ -9,7 +9,8 @@ function Template({ title, description1, description2, image, formType }) {
   // const { loading } = useSelector((state) => state.auth); //removed loading functionality from this page
 
   const loginHandler = ()=>{
-    window.open(`${process.env.REACT_APP_BASE_URL}/auth/googlelogin`, '_self')
+    // window.open(`${process.env.REACT_APP_BASE_URL}/auth/googlelogin`, '_self')
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/googlelogin`;
   }
 
   return (
