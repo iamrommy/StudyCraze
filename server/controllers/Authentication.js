@@ -156,7 +156,6 @@ exports.signUp = async (req, res)=>{
             password: hashedPassword,
             accountType,
             additionalDetails:profileDetails._id,
-            googleId: null,
             image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName}+${lastName}` //This api from dicebeer will generate default image for every account
         });
 
