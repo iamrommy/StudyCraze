@@ -40,6 +40,7 @@ function ReviewSlider() {
   return (
     <div className="text-white w-full flex justify-center">
       <div className="my-[50px] h-[184px] max-w-80 md:max-w-maxContentTab lg:max-w-maxContent">
+        {reviews.length === 0 && <div className="spinner"></div>}
         <Swiper
             slidesPerView={1}
             spaceBetween={25}
