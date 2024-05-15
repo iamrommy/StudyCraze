@@ -62,10 +62,10 @@ const Home = () => {
         </div>
 
         <div className="mt-8 flex flex-row gap-7">
-          <CTAButton active={true} linkto={randomPath ? randomPath : "/signup"}>
+          <CTAButton active={true} linkto={randomPath !== "catalog/undefined" ? randomPath : "/signup"}>
             Learn More
           </CTAButton>
-          <CTAButton active={false} linkto={randomPath ? randomPath : "/login"}>
+          <CTAButton active={false} linkto={randomPath !== "catalog/undefined" ? randomPath : "/login"}>
             Book a demo
           </CTAButton>
         </div>
@@ -97,12 +97,12 @@ const Home = () => {
             }
             ctabtn1={{
               btnText: "Try it Yourself",
-              linkto: randomPath ? randomPath : "/signup",
+              linkto: randomPath !== "catalog/undefined" ? randomPath : "/signup",
               active: true,
             }}
             ctabtn2={{
               btnText: "Learn more",
-              linkto: randomPath ? randomPath : "/login",
+              linkto: randomPath !== "catalog/undefined" ? randomPath : "/login",
               active: false,
             }}
             codeblock={
@@ -128,12 +128,12 @@ const Home = () => {
             }
             ctabtn1={{
               btnText: "Continue Lesson",
-              linkto: randomPath ? randomPath : "/signup",
+              linkto: randomPath !== "catalog/undefined" ? randomPath : "/signup",
               active: true,
             }}
             ctabtn2={{
               btnText: "Learn more",
-              linkto: randomPath ? randomPath : "/login",
+              linkto: randomPath !== "catalog/undefined" ? randomPath : "/login",
               active: false,
             }}
             codeblock={`import React from "react";\nimport CTAButton from "./Button";\nimport image from "./image.jpg";\nimport {FaArrow} from "react-icons";\n\nconst Home = () => {\n  return (\n\t<div>Home</div>\n  );\n}\n\nexport default Home;`}
@@ -153,13 +153,13 @@ const Home = () => {
           <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8">
             <div className="lg:h-[150px]"></div>
             <div className="flex flex-row gap-7 text-white lg:mt-8">
-              <CTAButton active={true} linkto={randomPath? randomPath : "/signup"}>
+              <CTAButton active={true} linkto={randomPath !== "catalog/undefined"? randomPath : "/signup"}>
                 <div className="flex items-center gap-2">
                   Explore Full Catalog
                   <FaArrowRight />
                 </div>
               </CTAButton>
-              <CTAButton active={false} linkto={randomPath? randomPath : "/login"}>
+              <CTAButton active={false} linkto={randomPath !== "catalog/undefined"? randomPath : "/login"}>
                 Learn More
               </CTAButton>
             </div>
@@ -179,7 +179,7 @@ const Home = () => {
                 competitive specialist today, it requires more than just
                 professional skills.
               </div>
-              <CTAButton active={true} linkto={randomPath? randomPath : "/signup"}>
+              <CTAButton active={true} linkto={randomPath !== "catalog/undefined"? randomPath : "/signup"}>
                 <div className="">Learn More</div>
               </CTAButton>
             </div>
