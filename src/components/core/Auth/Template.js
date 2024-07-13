@@ -10,8 +10,8 @@ function Template({ title, description1, description2, image, formType }) {
   // const { loading } = useSelector((state) => state.auth); //removed loading functionality from this page
 
   const loginHandler = ()=>{
-    toast.error(`${formType === "signup" ? "Google Sign Up currently unavailable" : "Google Sign In currently unavailable"}`)
-    return ; //remove these lines to activate google Auth
+    // toast.error(`${formType === "signup" ? "Google Sign Up currently unavailable" : "Google Sign In currently unavailable"}`)
+    // return ; //remove these lines to activate google Auth
     // window.open(`${process.env.REACT_APP_BASE_URL}/auth/googlelogin`, '_self')
     window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/googlelogin`;
   }
