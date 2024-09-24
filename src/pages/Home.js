@@ -58,7 +58,7 @@ const Home = () => {
           With our online coding courses, you can learn at your own pace, from
           anywhere in the world, and get access to a wealth of resources,
           including hands-on projects, quizzes, and personalized feedback from
-          instructors.
+          instructors
         </div>
 
         <div className="mt-8 flex flex-row gap-7">
@@ -177,7 +177,7 @@ const Home = () => {
               <div className="text-[16px]">
                 The modern StudyCraze dictates its own terms. To be a
                 competitive specialist today, it requires more than just
-                professional skills.
+                professional skills
               </div>
               <CTAButton active={true} linkto={randomPath !== "catalog/undefined"? randomPath : "/signup"}>
                 <div className="">Learn More</div>
