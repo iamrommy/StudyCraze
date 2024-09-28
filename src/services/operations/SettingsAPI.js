@@ -126,7 +126,7 @@ export async function changePassword(token, formData) {
 
     
     const message = response.data.message;
-    if(message === "Google accounts have No password. Click reset Password to set a Password" || message === "Current Password is Wrong, Try again"){
+    if(message === "Current Password is Wrong, Try again"){
         toast.error(message);
         toast.dismiss(toastId);
         return false;
