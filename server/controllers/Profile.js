@@ -205,7 +205,7 @@ exports.updateProfilePicture = async(req, res)=>{
         );
         console.log(image);
         
-        if(req.user.image){
+        if(req.user.image && req.user.image.includes('cloudinary')){
             const Cloudinaryres = await deleteImageFromCloudinary(req.user.image ,process.env.FOLDER_NAME);
             console.log(Cloudinaryres);
         }
