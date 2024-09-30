@@ -82,7 +82,7 @@ const SearchBar = ({ open, setOpen }) => {
                 {loading ? (
                 <p className="invert flex justify-center scale-75"><span className="spinner"></span></p>
                 ) : categories && categories.length ? (
-                <>
+                <div className="max-h-[80vh] overflow-auto">
                     {categories
                     // ?.filter((subLink) => subLink?.courses?.length > 0)
                     ?.sort((a, b) => {
@@ -96,18 +96,18 @@ const SearchBar = ({ open, setOpen }) => {
                         return (
                         <Link
                             to={subLinkRoute}
-                            className={`rounded-lg py-4 pl-4 ${
+                            className={`rounded-lg w-full block py-4 pl-4 ${
                             //   matchRoute(`${subLinkRoute}`)
                                 // ? "bg-richblack-100 hover:bg-richblack-200" :
                                 " bg-transparent hover:bg-richblack-50"
                             } active:hover:bg-richblack-300`}
                             key={i}
                         >
-                            <p>{subLink.name}</p>
+                            {subLink.name}
                         </Link>
                         );
                     })}
-                </>
+                </div>
                 ) : (
                 <p className="text-center">No Results</p>
                 )}
