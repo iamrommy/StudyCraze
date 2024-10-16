@@ -179,7 +179,7 @@ const Footer = () => {
             })}
           </div>
 
-          <div className="text-center">Made with ❤️ Raman © 2023 StudyCraze</div>
+          <div className="text-center">Made with ❤️ Raman © 2024 StudyCraze</div>
         </div>
       </div>
     </div>
