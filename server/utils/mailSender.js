@@ -1,7 +1,6 @@
 const nodemailer = require("nodemailer");
 
 const mailSender = async (email, title, body) => {
-  console.log("Sending email to:", email);
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -13,17 +12,27 @@ const mailSender = async (email, title, body) => {
       },
     });
 
-    const info = await transporter.sendMail({
-      from: "StudyCraze <studycrazeinfo@gmail.com>",
-      to: email,
-      subject: title,
-      html: body,
+    // Wrap in Promise to ensure await finishes before function returns
+    const info = await new Promise((resolve, reject) => {
+      transporter.sendMail(
+        {
+          from: `"StudyCraze" <${process.env.MAIL_USER}>`,
+          to: email,
+          subject: title,
+          html: body,
+        },
+        (error, info) => {
+          if (error) return reject(error);
+          resolve(info);
+        }
+      );
     });
 
-    console.log("Mail sent:", info.response);
+    console.log("✅ Mail sent successfully:", info.response);
     return info;
   } catch (error) {
-    console.error("Mail error:", error.message);
+    console.error("❌ Mail send error:", error.message);
+    throw error;
   }
 };
 
