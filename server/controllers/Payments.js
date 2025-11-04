@@ -61,6 +61,7 @@ exports.capturePayment = async (req, res) => {
   try {
     // Initiate the payment using Razorpay
     const paymentResponse = await instance.orders.create(options);
+    paymentResponse.key = process.env.RAZORPAY_KEY;
     console.log(paymentResponse);
     res.json({
       success: true,
@@ -83,7 +84,6 @@ exports.verifyPayment = async (req, res) => {
   const courses = req.body?.courses;
 
   const userId = req.user.id;
-
   if (
     !razorpay_order_id ||
     !razorpay_payment_id ||
