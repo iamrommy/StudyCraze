@@ -5,19 +5,19 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const mailSender = async (email, title, body) => {
   try {
     const response = await resend.emails.send({
-      from: 'StudyCraze <onboarding@resend.dev>', // default verified sender
+      from: 'StudyCraze <onboarding@resend.dev>',
       to: [email],
       subject: title,
-      html: body, // your HTML content
+      html: body,
     });
 
-    if (error) {
-      console.error("Mail send error:", response.error);
+    if (response?.error) {
+      console.error("Mail send error:", response?.error);
       return null;
     }
 
     console.log("Mail sent successfully:", response);
-    return data;
+    return response;
   } catch (err) {
     console.error("Mail error:", err);
     return null;
