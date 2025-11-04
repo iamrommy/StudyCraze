@@ -3,34 +3,27 @@ const nodemailer = require("nodemailer");
 const mailSender = async (email, title, body) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      host: process.env.MAIL_HOST,
+      port: 587,
+      secure: false, // important: Brevo uses TLS on port 587
       auth: {
-        user: process.env.MAIL_USER, 
+        user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
       },
     });
 
-    // 2. Send the mail using async/await
-    const mailOptions = {
-      from: `"StudyCraze" <${process.env.MAIL_USER}>`,
+    const info = await transporter.sendMail({
+      from: `"StudyCraze" <${process.env.MAIL_ID}>`, 
       to: email,
       subject: title,
       html: body,
-    };
+    });
 
-    // This returns a Promise that we await
-    const info = await transporter.sendMail(mailOptions);
-    
-    console.log("✅ Mail sent successfully:", info.response);
+    console.log("✅ Email sent:", info.messageId);
     return info;
-
   } catch (error) {
-    // Log the error message for debugging purposes on Render logs
-    console.error("❌ Mail send error details:", error); 
-    console.error("❌ Mail send error message:", error.message);
-    throw error;
+    console.error("❌ Email sending error:", error.message);
+    return null;
   }
 };
 
