@@ -7,31 +7,29 @@ const mailSender = async (email, title, body) => {
       port: 465,
       secure: true,
       auth: {
-        user: process.env.MAIL_USER,
+        user: process.env.MAIL_USER, 
         pass: process.env.MAIL_PASS,
       },
     });
 
-    // Wrap in Promise to ensure await finishes before function returns
-    const info = await new Promise((resolve, reject) => {
-      transporter.sendMail(
-        {
-          from: `"StudyCraze" <${process.env.MAIL_USER}>`,
-          to: email,
-          subject: title,
-          html: body,
-        },
-        (error, info) => {
-          if (error) return reject(error);
-          resolve(info);
-        }
-      );
-    });
+    // 2. Send the mail using async/await
+    const mailOptions = {
+      from: `"StudyCraze" <${process.env.MAIL_USER}>`,
+      to: email,
+      subject: title,
+      html: body,
+    };
 
+    // This returns a Promise that we await
+    const info = await transporter.sendMail(mailOptions);
+    
     console.log("✅ Mail sent successfully:", info.response);
     return info;
+
   } catch (error) {
-    console.error("❌ Mail send error:", error.message);
+    // Log the error message for debugging purposes on Render logs
+    console.error("❌ Mail send error details:", error); 
+    console.error("❌ Mail send error message:", error.message);
     throw error;
   }
 };
