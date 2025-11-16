@@ -6,6 +6,8 @@ import { setUser } from "../../redux/slices/profileSlice"
 import { apiConnector } from "../apiConnector"
 import { endpoints } from "../apis"
 import emailjs from "@emailjs/browser";
+import { otpTemplate } from "../../mailTemplates/emailVerificationTemplate"
+import { resetPasswordTemplate } from "../../mailTemplates/Resetpassword"
 
 const {
   SENDOTP_API,
@@ -41,14 +43,15 @@ export function sendOtp(email, navigate) {
 
       // console.log("response object otp", response?.data?.otp)
       /** SEND EMAIL FROM FRONTEND USING EMAILJS */
-      await emailjs.send(
-        "service_svcsopj",         
-        "template_3m1ivcv",        
+     await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
         {
-          email: email,        
-          passcode: response?.data?.otp,
+          email: email,
+          subject: "OTP for your StudyCraze account Authentication",
+          message_html: otpTemplate(response?.data?.otp),   // IMPORTANT
         },
-        "yUCI_tFtxl5RNrvSV"       
+        process.env.REACT_APP_EMAILJS_PUBLIC_ID
       );
 
       toast.success("OTP Sent Successfully")
@@ -207,6 +210,17 @@ export function getPasswordResetToken(email, setEmailSent) {
       if(!response.data.success){
         throw new Error(response.data.message);
       }
+
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        {
+          email: email,
+          subject: "Reset your password",
+          message_html: resetPasswordTemplate(response?.data?.url, email),
+        },
+        process.env.REACT_APP_EMAILJS_PUBLIC_ID
+      );
 
       toast.success("Reset Email Sent");
       setEmailSent(true);

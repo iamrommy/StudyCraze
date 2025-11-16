@@ -26,6 +26,7 @@ export default function UpdatePassword() {
   const submitPasswordForm = async (data) => {
     // console.log("password Data - ", data)
     data.email = user.email;
+    data.username = `${user.firstName} ${user.lastName}`
     try {
       const res = await changePassword(token, data)
       if(res){

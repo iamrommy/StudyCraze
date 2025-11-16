@@ -16,6 +16,7 @@ const CourseProgress = require("../models/CourseProgress")
 //capture the payment and initiate the razorpay order
 exports.capturePayment = async (req, res) => {
   const { courses } = req.body;
+  console.log(courses);
   const userId = req.user.id;
   if (courses.length === 0) {
     return res.json({ success: false, message: "Please Provide Course ID" });
@@ -91,6 +92,7 @@ exports.verifyPayment = async (req, res) => {
     !courses ||
     !userId
   ) {
+    console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature, courses, userId);
     return res.status(200).json({ success: false, message: "Payment Failed" });
   }
 
@@ -100,7 +102,6 @@ exports.verifyPayment = async (req, res) => {
     .createHmac("sha256", process.env.RAZORPAY_SECRET)
     .update(body.toString())
     .digest("hex");
-
   if (expectedSignature === razorpay_signature) {
     await enrollStudents(courses, userId, res);
     return res.status(200).json({ success: true, message: "Payment Verified" });
@@ -154,16 +155,16 @@ const enrollStudents = async (courses, userId, res) => {
 
       console.log("Enrolled student: ", enrolledStudent);
       // Send an email notification to the enrolled student
-      const emailResponse = await mailSender(
-        enrolledStudent.email,
-        `Successfully Enrolled into ${enrolledCourse.courseName}`,
-        courseEnrollmentEmail(
-          enrolledCourse.courseName,
-          `${enrolledStudent.firstName} ${enrolledStudent.lastName}`
-        )
-      );
+      // const emailResponse = await mailSender(
+      //   enrolledStudent.email,
+      //   `Successfully Enrolled into ${enrolledCourse.courseName}`,
+      //   courseEnrollmentEmail(
+      //     enrolledCourse.courseName,
+      //     `${enrolledStudent.firstName} ${enrolledStudent.lastName}`
+      //   )
+      // );
 
-      console.log("Email sent successfully: ", emailResponse?.response);
+      // console.log("Email sent successfully: ", emailResponse?.response);
     } catch (error) {
       console.log(error);
       return res.status(400).json({ success: false, error: error.message });
@@ -186,16 +187,16 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
     try {
       const enrolledStudent = await User.findById(userId)
   
-      await mailSender(
-        enrolledStudent.email,
-        `Payment Received`,
-        paymentSuccessEmail(
-          `${enrolledStudent.firstName} ${enrolledStudent.lastName}`,
-          amount / 100,
-          orderId,
-          paymentId
-        )
-      )
+      // await mailSender(
+      //   enrolledStudent.email,
+      //   `Payment Received`,
+      //   paymentSuccessEmail(
+      //     `${enrolledStudent.firstName} ${enrolledStudent.lastName}`,
+      //     amount / 100,
+      //     orderId,
+      //     paymentId
+      //   )
+      // )
     } catch (error) {
       console.log("error in sending mail", error)
       return res

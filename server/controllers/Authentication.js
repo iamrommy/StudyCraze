@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const JWT = require('jsonwebtoken');
 
 const { passwordUpdated } = require("../mailTemplates/passwordUpdated");
-const mailSender = require('../utils/mailSender');
+// const mailSender = require('../utils/mailSender');
 
 require('dotenv').config();
 
@@ -267,14 +267,11 @@ exports.logIn = async (req, res)=>{
 };
 
 
-//change password
+// change password
 exports.changePassword = async(req,res)=>{
-
     try{
-        //fetch data
-        const {oldPassword, newPassword, email} = req.body;
+        const { oldPassword, newPassword, email } = req.body;
 
-        //validate data
         if(!oldPassword || !newPassword){
             return res.status(403).json({
                 success:false,
@@ -283,6 +280,12 @@ exports.changePassword = async(req,res)=>{
         }
 
         const user = await User.findOne({email});
+        if(!user){
+            return res.json({
+                success:false,
+                message:"User not found"
+            });
+        }
 
         const isPasswordMatch = await bcrypt.compare(oldPassword, user.password);
         if(!isPasswordMatch){
@@ -291,36 +294,16 @@ exports.changePassword = async(req,res)=>{
                 message:'Current Password is Wrong, Try again'
             });
         }
-    
+
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
 
-        // create entry in DB
-        const updatedUserDetails = await User.findOneAndUpdate(
-                                    {email: user.email},
-                                    {
-                                        password: newHashedPassword
-                                    },
-                                    {new:true}      
-                                );
+        await User.findOneAndUpdate(
+            { email: user.email },
+            { password: newHashedPassword },
+            { new: true }
+        );
 
-        //send mail
-        try{
-            const emailResponse = await mailSender(
-                updatedUserDetails.email,
-                "Password for your account has been updated",
-                passwordUpdated(
-                    updatedUserDetails.email,
-                    `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
-                )
-                )
-                console.log("Email sent successfully:", emailResponse.response)
-
-        }
-        catch(error){
-            console.log("error occured while sending mails", error);
-            throw error;
-        }
-        //return response
+        // return success (NO EMAIL HERE)
         return res.json({
             success: true,
             message: 'Your password is updated successfully'
@@ -330,8 +313,9 @@ exports.changePassword = async(req,res)=>{
     catch(error){
         console.log('Error in Changing password ', error);
         return res.status(400).json({
-            success:true,
+            success:false,
             message: error.message
         });
     }   
 };
+

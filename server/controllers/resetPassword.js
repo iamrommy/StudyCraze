@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const mailSender = require('../utils/mailSender');
+// const mailSender = require('../utils/mailSender');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
@@ -32,8 +32,8 @@ exports.resetPasswordToken = async(req,res)=>{
 
         //create url
         const url = `${process.env.FRONTEND_URL}/update-password/${token}`
-        //send mail containing the url
-        await mailSender(email, 'Reset Password | StudyCraze', `Your Password Reset Link :${url}`);
+        // //send mail containing the url
+        // await mailSender(email, 'Reset Password | StudyCraze', `Your Password Reset Link :${url}`);
 
         //return response
         return res.json({

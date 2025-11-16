@@ -5,6 +5,8 @@ import CountryCode from "../../../data/countrycode.json"
 import { apiConnector } from "../../../services/apiConnector"
 import { contactusEndpoint } from "../../../services/apis"
 import toast from "react-hot-toast"
+import { contactUsEmail } from "../../../mailTemplates/contactFormRes"
+import emailjs from "@emailjs/browser";
 
 const ContactUsForm = () => {
   const [loading, setLoading] = useState(false)
@@ -26,6 +28,18 @@ const ContactUsForm = () => {
         data
       )
       // console.log("Email Res - ", res)
+
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        {
+          email: data.email,
+          subject: "User Contact Us Form Request",
+          message_html: contactUsEmail(data.email, data.firstname, data.lastname, data.message, data.phoneNo, data.countrycode),
+        },
+        process.env.REACT_APP_EMAILJS_PUBLIC_ID
+      );
+
       setLoading(false)
       toast.success('Response Sent')
     } catch (error) {

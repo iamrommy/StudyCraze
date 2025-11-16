@@ -4,6 +4,8 @@ import { setUser } from "../../redux/slices/profileSlice"
 import { apiConnector } from "../apiConnector"
 import { settingsEndpoints } from "../apis"
 import { logout } from "./authAPI"
+import emailjs from "@emailjs/browser";
+import { passwordUpdated } from "../../mailTemplates/passwordUpdated"
 
 const {
   UPDATE_DISPLAY_PICTURE_API,
@@ -135,6 +137,18 @@ export async function changePassword(token, formData) {
     if (!response.data.success) {
       throw new Error(response.data.message)
     }
+
+     /** SEND EMAIL USING EMAILJS */
+    await emailjs.send(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,             
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,      
+      {
+        email: formData.email,       
+        subject: "Password Updation",
+        message_html: passwordUpdated(formData.email, formData.username),
+      },
+      process.env.REACT_APP_EMAILJS_PUBLIC_ID             
+    );
 
     toast.success("Password Changed Successfully")
     toast.dismiss(toastId);

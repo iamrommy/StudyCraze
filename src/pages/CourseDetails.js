@@ -113,7 +113,7 @@ function CourseDetails() {
       return
     }
     if (token) {
-      buyCourse(token, [courseId], user, navigate, dispatch)
+      buyCourse(token, [response?.data?.courseDetails], user, navigate, dispatch)
       return
     }
     setConfirmationModal({
