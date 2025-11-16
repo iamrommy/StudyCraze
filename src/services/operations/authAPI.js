@@ -5,6 +5,7 @@ import { resetCart } from "../../redux/slices/cartSlice"
 import { setUser } from "../../redux/slices/profileSlice"
 import { apiConnector } from "../apiConnector"
 import { endpoints } from "../apis"
+import emailjs from "@emailjs/browser";
 
 const {
   SENDOTP_API,
@@ -37,6 +38,18 @@ export function sendOtp(email, navigate) {
       if (!response.data.success) {
         throw new Error(response.data.message)
       }
+
+      // console.log("response object otp", response?.data?.otp)
+      /** SEND EMAIL FROM FRONTEND USING EMAILJS */
+      await emailjs.send(
+        "service_svcsopj",         
+        "template_3m1ivcv",        
+        {
+          email: email,        
+          passcode: response?.data?.otp,
+        },
+        "yUCI_tFtxl5RNrvSV"       
+      );
 
       toast.success("OTP Sent Successfully")
       navigate("/verify-email")
